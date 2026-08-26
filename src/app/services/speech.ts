@@ -37,7 +37,7 @@ constructor() {// 2. ДОДАЛИ: Просимо браузер дати нам
         const text = event.results[0][0].transcript; // 1. Дістаємо текст
         this.transcript.set(text);                   // 2. Кладемо в "блокнот"
 
-        alert('Телефон авпочув: ' + text);
+        alert('Телефон почув: ' + text);
         this.isListening.set(false);                 // 3. Вимикаємо лампочку
       };
 
@@ -60,21 +60,40 @@ constructor() {// 2. ДОДАЛИ: Просимо браузер дати нам
     }
  
 // Команда 1: Почати слухати
-start() {
-    console.log('1. Кнопку натиснуто!');
-    console.log('2. Стан лампочки:', this.isListening());
+// start() {
+//     console.log('1. Кнопку натиснуто!');
+//     console.log('2. Стан лампочки:', this.isListening());
     
+//     if (this.isListening()) {
+//       console.log('3. Програма думає, що запис уже йде, тому ігнорує клік.');
+//       return; 
+//     }
+
+//     if (this.recognition) {
+//       console.log('4. Даємо команду браузеру ввімкнути мікрофон...');
+//       this.isListening.set(true); 
+//       this.recognition.start();   
+//     } else {
+//       alert('Ой! Здається, цей браузер не підтримує голосовий ввід.');
+//     }
+//   }
+
+// Почати слухати з вибраною мовою
+start(language: string = '') {
+    console.log('1. Кнопку натиснуто! Мова:', language);
+    console.log('2. Чи зависла лампочка?', this.isListening());
+
+    // Перевіряємо наш запобіжник
     if (this.isListening()) {
-      console.log('3. Програма думає, що запис уже йде, тому ігнорує клік.');
-      return; 
+      console.log('3. Програма думає, що вже слухає, ігноруємо клік.');
+      return;
     }
 
     if (this.recognition) {
       console.log('4. Даємо команду браузеру ввімкнути мікрофон...');
-      this.isListening.set(true); 
-      this.recognition.start();   
-    } else {
-      alert('Ой! Здається, цей браузер не підтримує голосовий ввід.');
+      this.recognition.lang = language;
+      this.isListening.set(true);
+      this.recognition.start();
     }
   }
 
