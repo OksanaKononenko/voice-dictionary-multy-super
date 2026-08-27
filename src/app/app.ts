@@ -135,7 +135,19 @@ export class AppComponent {
     this.result.set(null);
     this.translation.set('');
 
-    const lang = this.speechService.currentLanguage();
+ 
+
+// Отримуємо поточну мову
+    let lang = this.speechService.currentLanguage();
+    
+    // Якщо мова ще не обрана (наприклад, при тесті на комп'ютері) -> ставимо англійську!
+    if (!lang) {
+      lang = 'en-US';
+    }
+
+    // 1. Якщо ми сказали АНГЛІЙСЬКОЮ:
+ 
+
 
     // 1. Якщо ми сказали АНГЛІЙСЬКОЮ:
     if (lang === 'en-US') {

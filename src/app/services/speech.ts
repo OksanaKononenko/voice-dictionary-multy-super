@@ -114,5 +114,10 @@ start(language: string = '') {
     }
 
 }
-
+// Команда для озвучення (читання) тексту
+  speakText(text: string) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US'; // Налаштовуємо нашого диктора на англійський акцент
+    window.speechSynthesis.speak(utterance);
+  }
 }
