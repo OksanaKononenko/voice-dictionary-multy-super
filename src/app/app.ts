@@ -96,7 +96,7 @@ export class AppComponent {
 // 1. Наші "розумні коробки" для екрана
   protected readonly title1 = signal('voice-dictionary');
   result = signal<any>(null); // Коробка для англійського словника
-  translation = signal<string>(''); // <--- ДОДАЛИ: Нова коробка для українського перекладу!
+  translation = signal<string>(''); // <-- - ДОДАЛИ: Нова коробка для  о перекладу!
 
   dictionaryService = inject(DictionaryService);
   speechService = inject(SpeechService);
@@ -112,19 +112,51 @@ export class AppComponent {
   }
 
   // 2. Оновлюємо дію нашого офіціанта
+  // findWord(word: string) {
+  //   // Спочатку очищаємо обидві коробки перед новим пошуком
+  //   this.result.set(null);
+  //   this.translation.set('');
+
+  //   // Замовлення 1: Шукаємо англійське значення
+  //   this.dictionaryService.searchWord(word).subscribe((data) => {
+  //     this.result.set(data);
+  //   });
+
+  //   // Замовлення 2: ОДНОЧАСНО просимо перекласти це слово
+  //   this.dictionaryService.translateWord(word).subscribe((data: any) => {
+  //     // Сервер перекладу пакує відповідь трохи інакше, тому дістаємо саме текст:
+  //     this.translation.set(data.responseData.translatedText);
+  //   });
+  // } }
+
+
   findWord(word: string) {
-    // Спочатку очищаємо обидві коробки перед новим пошуком
+    // Очищаємо екран перед новим пошуком
     this.result.set(null);
     this.translation.set('');
 
-    // Замовлення 1: Шукаємо англійське значення
-    this.dictionaryService.searchWord(word).subscribe((data) => {
-      this.result.set(data);
-    });
+    const lang = this.speechService.currentLanguage();
 
-    // Замовлення 2: ОДНОЧАСНО просимо перекласти це слово
-    this.dictionaryService.translateWord(word).subscribe((data: any) => {
-      // Сервер перекладу пакує відповідь трохи інакше, тому дістаємо саме текст:
-      this.translation.set(data.responseData.translatedText);
-    });
+    // 1. Якщо ми сказали АНГЛІЙСЬКОЮ:
+    if (lang === 'en-US') {
+      
+      // Шукаємо англійське пояснення
+      this.dictionaryService.searchWord(word).subscribe((data) => {
+        this.result.set(data);
+      });
+      // Одночасно перекладаємо на УКРАЇНСЬКУ
+      this.dictionaryService.translateWord(word).subscribe((data: any) => {
+        this.translation.set(data.responseData.translatedText);
+      });
+
+    } 
+    // 2. Якщо ми сказали УКРАЇНСЬКОЮ або РОСІЙСЬКОЮ:
+    else if (lang === 'uk-UA' || lang === 'ru-RU') {
+      
+      // Просто перекладаємо сказане на АНГЛІЙСЬКУ
+      this.dictionaryService.translateToEnglish(word).subscribe((data: any) => {
+        this.translation.set(data.responseData.translatedText);
+      });
+      
+    }
   } }

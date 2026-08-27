@@ -22,4 +22,9 @@ searchWord(word: string) {
   translateWord(word: string) {
     return this.http.get('https://api.mymemory.translated.net/get?q=' + word + '&langpair=en|uk');
   }
+
+  // 3. ПЕРЕВІР, ЧИ Є ТУТ ЦЯ ФУНКЦІЯ (Переклад на англійську):
+  translateToEnglish(word: string) {
+    return this.http.get('https://api.mymemory.translated.net/get?q=' + word + '&langpair=uk|en');
+  }
 }

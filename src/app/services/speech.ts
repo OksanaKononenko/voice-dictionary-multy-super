@@ -16,6 +16,11 @@ export class SpeechService {
   // 2. Блокнот для тексту: сюди помічник запише те, що почув (спочатку порожньо)
   transcript = signal('');
 
+ 
+  currentLanguage = signal('en-US'); // <---  коробка для поточної мови
+
+
+
 // 1. ДОДАЛИ: Створюємо місце для нашого мікрофона
   private recognition: any;//— ми створили змінну-коробочку, де сервіс буде зберігати підключений мікрофон. Слово private означає, що цей мікрофон може використовувати тільки цей сервіс на своїй "закритій кухні".
 
@@ -90,7 +95,11 @@ start(language: string = '') {
     }
 
     if (this.recognition) {
-      console.log('4. Даємо команду браузеру ввімкнути мікрофон...');
+        console.log('4. Даємо команду браузеру ввімкнути мікрофон...');
+// ЗАПАМ'ЯТОВУЄМО МОВУ В КОРОБКУ
+      this.currentLanguage.set(language);
+
+    
       this.recognition.lang = language;
       this.isListening.set(true);
       this.recognition.start();
