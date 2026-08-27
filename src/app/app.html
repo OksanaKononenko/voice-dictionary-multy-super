@@ -31,24 +31,59 @@
 </div> -->
 
 <!-- 5. Блок результату (Знайдене англійське слово + КНОПКА ОЗВУЧКИ 🔊) -->
-@if (result()) {
+<!-- @if (result()) {
   <div style="margin-top: 20px; padding: 15px; background: #e6f7ff; border-radius: 8px; border: 1px solid #91d5ff;">
     <h2>
-      📘 Знайдене слово: {{ result()[0].word }}
+      📘 Знайдене слово: {{ result()[0].word }}-->
       
       <!-- 🔊 КНОПКА ОЗВУЧКИ АНГЛІЙСЬКОЮ -->
-      <button (click)="speechService.speakText(result()[0].word)" style="margin-left: 10px; background: none; border: none; font-size: 24px; cursor: pointer;" title="Озвучити англійською">🔊</button>
+      <!-- <button (click)="speechService.speakText(result()[0].word)" style="margin-left: 10px; background: none; border: none; font-size: 24px; cursor: pointer;" title="Озвучити англійською">🔊</button>
     </h2>
     
     <p><b>Вимова:</b> {{ result()[0].phonetic }}</p>
     <p><b>Значення (англ):</b> {{ result()[0].meanings[0].definitions[0].definition }}</p>
   </div>
-}
+}  -->
 
 <!-- 6. Блок українського перекладу -->
-@if (translation()) {
+<!-- @if (translation()) {
   <div style="margin-top: 15px; padding: 15px; background: #fffbe6; border-radius: 8px; border: 1px solid #ffe58f;">
     <h2>🇺🇦 Переклад:</h2>
+    <p style="font-size: 20px; font-weight: bold; color: #d46b08;">
+      {{ translation() }}
+    </p>
+  </div>
+} -->
+
+<!-- 1. Блакитний блок (З'являється, коли ми сказали англійське слово) -->
+@if (result()) {
+  <div style="margin-top: 20px; padding: 15px; background: #e6f7ff; border-radius: 8px; border: 1px solid #91d5ff;">
+    <h2>
+      📘 Знайдене слово: {{ result()[0].word }}
+      <!-- Озвучуємо англійський оригінал -->
+      <button (click)="speechService.speakText(result()[0].word)" style="margin-left: 10px; background: none; border: none; font-size: 24px; cursor: pointer;">🔊</button>
+    </h2>
+    <p><b>Вимова:</b> {{ result()[0].phonetic }}</p>
+    <p><b>Значення (англ):</b> {{ result()[0].meanings[0].definitions[0].definition }}</p>
+  </div>
+}
+
+<!-- 2. Жовтий блок з перекладом -->
+@if (translation()) {
+  <div style="margin-top: 15px; padding: 15px; background: #fffbe6; border-radius: 8px; border: 1px solid #ffe58f;">
+    
+    <!-- ПЕРЕВІРЯЄМО МОВУ: Якщо мікрофон був НЕ англійський, значить ми переклали НА англійську -->
+    @if (speechService.currentLanguage() !== 'en-US') {
+      <h2>
+        🇬🇧 Переклад (англ):
+        <!-- Додаємо кнопку озвучки ТІЛЬКИ сюди, бо тут англійський текст -->
+        <button (click)="speechService.speakText(translation())" style="margin-left: 10px; background: none; border: none; font-size: 24px; cursor: pointer;">🔊</button>
+      </h2>
+    } @else {
+      <!-- Якщо мікрофон був англійський, то переклад УКРАЇНСЬКОЮ (без динаміка) -->
+      <h2>🇺🇦 Переклад (укр):</h2>
+    }
+
     <p style="font-size: 20px; font-weight: bold; color: #d46b08;">
       {{ translation() }}
     </p>
