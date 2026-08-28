@@ -1,0 +1,133 @@
+/* Основний контейнер додатку */
+.dictionary-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 25px;
+  font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  color: #1f2937;
+}
+
+/* Спільні стилі для заголовків та тексту */
+.section-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #374151;
+}
+
+/* Стилі для кнопок */
+button {
+  padding: 10px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #4f46e5;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+/* Групування кнопок мов */
+.buttons-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Специфічні кнопки */
+.btn-test {
+  background-color: #6b7280;
+  margin-top: 15px;
+  
+  &:hover { background-color: #4b5563; box-shadow: none; }
+}
+
+.btn-translate {
+  width: 100%;
+  margin-top: 15px;
+  font-size: 16px;
+  padding: 12px;
+  background-color: #10b981;
+
+  &:hover { background-color: #059669; }
+}
+
+.btn-speaker {
+  background: transparent !important;
+  border: none !important;
+  font-size: 28px !important;
+  color: #4b5563 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  
+  &:hover {
+    transform: scale(1.2) !important;
+    background: transparent !important;
+  }
+}
+
+/* Блок почутого тексту */
+.transcript-box {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  border-left: 4px solid #4f46e5;
+  font-size: 18px;
+
+  span {
+    font-weight: bold;
+    color: #4f46e5;
+  }
+}
+
+/* Картки результатів */
+.result-card {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  
+  &:hover { box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05); }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    
+    h2 { margin: 0; font-size: 22px; }
+  }
+}
+
+.blue-card {
+  background: #e6f7ff;
+  border: 1px solid #91d5ff;
+  h2 { color: #0050b3; }
+}
+
+.yellow-card {
+  background: #fffbe6;
+  border: 1px solid #ffe58f;
+  h2 { color: #d46b08; }
+  
+  .translated-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d46b08;
+    margin: 0;
+  }
+}
