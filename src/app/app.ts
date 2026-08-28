@@ -128,7 +128,18 @@ export class AppComponent {
   //     this.translation.set(data.responseData.translatedText);
   //   });
   // } }
+// НОВА ФУНКЦІЯ: Очищає екран і запускає мікрофон
+  startListening(lang: string) {
+    // 1. Очищаємо попередні результати
+    this.result.set(null);
+    this.translation.set('');
+    
+    // 2. Очищаємо текст, який мікрофон почув минулого разу
+    this.speechService.transcript.set('');
 
+    // 3. Вмикаємо мікрофон із вибраною мовою
+    this.speechService.start(lang);
+  }
 
   findWord(word: string) {
     // Очищаємо екран перед новим пошуком

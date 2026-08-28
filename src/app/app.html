@@ -1,11 +1,11 @@
 <!-- 1. Кнопки вибору мови (Англійська, Українська, Російська) -->
 <div style="margin-bottom: 20px;">
   <p><b>Обери мову для голосового вводу:</b></p>
-  <button (click)="speechService.start('en-US')">🇬🇧 English</button>
-  <button (click)="speechService.start('uk-UA')" style="margin-left: 5px;">🇺🇦 Українська</button>
-  <button (click)="speechService.start('ru-RU')" style="margin-left: 5px;">🇷🇺 Русский</button>
+  <!-- ЗМІНИЛИ: Тепер кнопки викликають startListening -->
+  <button (click)="startListening('en-US')">🇬🇧 English</button>
+  <button (click)="startListening('uk-UA')" style="margin-left: 5px;">🇺🇦 Українська</button>
+  <button (click)="startListening('ru-RU')" style="margin-left: 5px;">🇷🇺 Русский</button>
 </div>
-
 <!-- 2. Тестова кнопка для комп'ютера -->
 <!-- <div style="margin-bottom: 15px;">
   <button (click)="speechService.transcript.set('hello')">💻 Тест на комп'ютері (знайти hello)</button>
